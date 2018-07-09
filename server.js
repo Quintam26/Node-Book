@@ -3,6 +3,8 @@ const http = require('http');
 
 function start() {
     function onRequest(request, response) {
+        const pathName = url.parse(request.url).pathName;
+        console.log('Request for ' + pathName + ' recieved.');
         response.writeHead(200, {'Content-Type': 'text/plain'});
         response.write('Hello World');
         response.end();
