@@ -1,4 +1,4 @@
-const querystring = require('querystring');
+const querystring = require('querystring'), fs = require('fs');
 
 function start(response, postData) {
     console.log('Request handler START was called.');
@@ -17,7 +17,7 @@ function start(response, postData) {
         '</html>';
 
   
-        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.writeHead(200, {'Content-Type': 'text/html'});
         response.write(body);
         response.end();
 }
@@ -29,5 +29,12 @@ function upload(response, postData) {
     response.end();
 }
 
+function show(response) {
+    console.log("Request handler SHOW was called.");
+    response.writeHead(200, {'Content-Type': 'image/pnf'});
+    fs.createReadStream('/tmp/test.png'.pipe(response));
+}
+
 exports.start = start;
 exports.upload = upload;
+exports.show = show;
