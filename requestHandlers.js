@@ -1,20 +1,31 @@
-const exec = require('child_process').exec
+const querystring = require('querystring');
 
-function start() {
+function start(response, postData) {
     console.log('Request handler START was called.');
-    const content = 'empty'
 
-    exec('ls -lah', function(error, stdout, stderr) {
+    const body = '<html>'+
+        '<head>'+
+        '<meta http-equiv="Content-Type" '+
+        'content="text/html; charset=UTF-8" />'+
+        '</head>'+
+        '<body>'+
+        '<form action="/upload" method="post">'+
+        '<textarea name="text" rows="20" cols="60"></textarea>'+
+        '<input type="submit" value="Submit text" />'+
+        '</form>'+
+        '</body>'+
+        '</html>';
+
+  
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(stdout);
+        response.write(body);
         response.end();
-    });
 }
 
-function upload() {
+function upload(response, postData) {
     console.log('Request handler UPLOAD was called.');
     response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write('Hello Upload');
+    response.write('You have sent text: ' + querystring.parse(postData).text);
     response.end();
 }
 
