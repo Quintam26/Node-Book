@@ -40,7 +40,7 @@ function upload(response, request) {
 
             response.writeHead(200, {'Content-Type': 'text/html'});
             response.write('recieved image:<br/>');
-            response.write('<img src="/show" />');
+            response.write('<img src="/show" >');
             response.end();
 
     });
